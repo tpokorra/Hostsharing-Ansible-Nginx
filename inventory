@@ -1,0 +1,2 @@
+[nginx]
+xyz00 ansible_ssh_host=xyz00.hostsharing.net ansible_ssh_user=xyz00 pac=xyz00 domain=demo.example.org user=nginx password=testpassw0rd!? httpport=38080 httpsport=38443
