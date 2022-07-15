@@ -22,11 +22,6 @@ then
   openssl genrsa 4096 > $HOME/etc/letsencrypt/account.key
 fi
 
-if [ ! -f $HOME/etc/letsencrypt/lets-encrypt-x3-cross-signed.pem ]
-then
-  wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem -O $HOME/etc/letsencrypt/lets-encrypt-x3-cross-signed.pem
-fi
-
 # create a new, unique Diffie-Hellman group, to fight the Logjam attack: https://weakdh.org/sysadmin.html
 if [ ! -f $certs_dir/dhparams.pem ]
 then
@@ -120,7 +115,7 @@ FINISH
   if [ $error -eq 0 ]
   then
     cp -f $domain.key $certs_dir/$domain.key
-    cat $domain.crt lets-encrypt-x3-cross-signed.pem > $certs_dir/$domain.crt
+    cp -f $domain.crt $certs_dir/$domain.crt
   else
     # disable this site to avoid that nginx cannot be started again
     mv $HOME/etc/nginx.conf.d/$domain.conf $HOME/etc/nginx.conf.d/disabled/
