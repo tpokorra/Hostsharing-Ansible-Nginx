@@ -1,3 +1,11 @@
+/home/pacs/{{pac}}/users/{{user}}/var/log/monit.log {
+   copytruncate
+   daily
+   rotate 7
+   compress
+   missingok
+}
+
 /home/pacs/{{pac}}/users/{{user}}/var/log/nginx-access.log {
    copytruncate
    daily
@@ -6,3 +14,26 @@
    missingok
 }
 
+/home/pacs/{{pac}}/users/{{user}}/var/log/nginx-error.log {
+   copytruncate
+   daily
+   rotate 7
+   compress
+   missingok
+}
+
+/home/pacs/{{pac}}/users/{{user}}/var/log/*.access.log {
+   copytruncate
+   daily
+   rotate 7
+   compress
+   missingok
+}
+
+/home/pacs/{{pac}}/users/{{user}}/var/log/*.error.log {
+   copytruncate
+   daily
+   rotate 7
+   compress
+   missingok
+}
