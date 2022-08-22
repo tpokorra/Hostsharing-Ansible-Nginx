@@ -1,0 +1,30 @@
+---
+- name: create directory bin for borg binary and script
+  become: yes
+  become_user: "{{pac}}-{{user}}"
+  file:
+    path: "/home/pacs/{{pac}}/users/{{user}}/bin"
+    state: directory
+
+- name: download borg binary
+  become: yes
+  become_user: "{{pac}}-{{user}}"
+  # see https://borgbackup.readthedocs.io/en/1.2-maint/installation.html#standalone-binary
+  get_url:
+    url: https://github.com/borgbackup/borg/releases/download/{{borg_version}}/borg-linux64
+    dest: /home/pacs/{{pac}}/users/{{user}}/bin/borg
+    mode: 0700
+
+- name: upload backup script
+  become: yes
+  become_user: "{{pac}}-{{user}}"
+  template: dest="/home/pacs/{{pac}}/users/{{user}}/bin/backup.sh" src="templates/backup.sh" mode=0700
+
+- name: run backup once a day
+  become: yes
+  become_user: "{{pac}}-{{user}}"
+  cron:
+    name: "backup"
+    minute: "22"
+    hour: "3"
+    job: "$HOME/bin/backup.sh"

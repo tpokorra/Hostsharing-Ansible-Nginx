@@ -57,6 +57,12 @@
       state: directory
 
   #################################
+  ## install requirements
+  #################################
+  - name: Install borg backup
+    import_tasks: tasks/borgbackup.yml
+
+  #################################
   ## upload files
   #################################
   - name: upload nginx.conf
